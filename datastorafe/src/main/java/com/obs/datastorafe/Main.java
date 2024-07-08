@@ -11,7 +11,7 @@ package com.obs.datastorafe;
  */
 public class Main {
     public static void main(String[] args) {
-
+     
         DataStorage memoryStorage = new MemoryStorage1();
         memoryStorage.writeData("Data stored in memory");
         System.out.println("Memory storage: " + memoryStorage.readData());
@@ -21,7 +21,7 @@ public class Main {
         System.out.println("File storage: " + fileStorage.readData());
 
         DataStorage databaseStorage = new DatabaseStorage("database.db");
-        databaseStorage.writeData("Data stored in database");
+        databaseStorage.writeData("Ini data uang kusimpan");
         System.out.println("Database storage: " + databaseStorage.readData());
     }
 }

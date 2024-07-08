@@ -23,15 +23,24 @@ public class DatabaseStorage implements DataStorage{
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:"+ databasePath);
+            
+            createDataTable();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    // ini private methode (internal methode tambahan di dalam kelas DatabaseStorage
+    private void createDataTable() throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS data (value TEXT)");
         }
     }
 
     @Override
     public void writeData(String data) {
-        try ( PreparedStatement statement = connection.prepareStatement("INSERT INTO data (value) VALUES ('Data stored in database')")) {
-            statement.setString(1, data);
+        try ( PreparedStatement statement = connection.prepareStatement("INSERT INTO data (value) VALUES ('"+data+"')")) {
+            //statement.setString(1, data);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
